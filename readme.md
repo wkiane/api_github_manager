@@ -6,7 +6,7 @@ A API Github Manager permite que você crie um  usuário adcione usuários e cri
 
 Para usar a API, utilize o endereço:
 
-`https://localhost:3333/api/[command]`
+`https://api-github-manager.herokuapp.com/[command]`
 
 Onde [command] pode ser um dos serviços listados abaixo:
 
