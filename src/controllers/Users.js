@@ -69,27 +69,33 @@ module.exports = {
     
     const { email, senha } = req.body
     
-    User.findOne({ email }, async function(err, userInfo) {
+    User.findOne({ email }).select('+senha').exec(function(err, userInfo) {
       if(err) {
         next(err);
         return res.json({ status: "error", message: err})
       } else {
-        const match = await bcrypt.compare(senha, userInfo.senha);
 
-        if(match) {
-          //login
-          const token = jwt.sign({ id: userInfo._id }, req.app.get('secretKey'), {
-            expiresIn: '1h'
-          });
-            
-          res.json({
-                    status: "success",
-                    message: "user found",
-                    data: {user: userInfo, token: token }
-                  });
-        } else {
-          res.json({ status: "error", message: "Invalid email or password" })
-        }
+        console.log({ senha, userInfo })
+
+        bcrypt.compare(senha, userInfo, function(err) {
+
+          try {
+            //login
+            const token = jwt.sign({ id: userInfo._id }, req.app.get('secretKey'), {
+              expiresIn: '1h'
+            });
+              
+            res.json({
+                      status: "success",
+                      message: "user found",
+                      data: {user: userInfo, token: token }
+                    });
+          } catch(err) {
+            res.json({ status: "error", message: "Invalid email or password" });
+          }
+        });
+
+        
       }
     });
   }
