@@ -1,9 +1,10 @@
 require('dotenv').config();
 
 const axios = require('axios');
-const { isAdmin } = require('../middlewares/auth');
+const { isAdmin, isMyList } = require('../middlewares/auth');
 
 const GithubUser = require('../models/GithubUser');
+const List = require('../models/List');
 
 module.exports = {
 
@@ -11,6 +12,46 @@ module.exports = {
     const githubUsers = await GithubUser.find({});
 
     return res.json(githubUsers);
+  },
+
+  async store(req, res) {
+    isMyList(req, res);
+
+    const { listId } = req.params;
+    const { login } = req.body;
+
+    
+
+    const list = await List.findById(listId);
+    const githubUser = await GithubUser.findOne({ login }, function(err) {
+      if(err) {
+        return res.json({ "error": err });
+      }
+    })
+
+    if(!list) {
+      return res.json({ status: "error", message: "Lista não encontrada" });
+    }
+
+    if(!githubUser) {
+      return res.json({ status: "error", message: "Usuário github não encontrado" });
+    }
+
+    if(list.githubusers.includes(githubUser._id)) {
+      return res.json({ message: "Usuário já cadastrado na lista"});
+    }
+
+    list.githubusers.push(githubUser._id);
+    const new_list = await list.save();
+
+    if(!githubUser) {
+      return res.json({ status: "error", message: "Algo deu errado!" });
+    }
+
+    githubUser.lists.push(new_list);
+    const new_githubuser = await githubUser.save();
+
+    return res.json(githubUser);
   },
   
   async create(req, res) {
@@ -29,7 +70,6 @@ module.exports = {
 
     const { login, name, bio, location, html_url } = response.data
 
-    console.log(response);
     const githubUser = await GithubUser.create({
       login: login,
       nome: name,
@@ -37,6 +77,8 @@ module.exports = {
       localidade: location,
       html_url: html_url
     });
+
+    
 
     return res.json(githubUser);
   }

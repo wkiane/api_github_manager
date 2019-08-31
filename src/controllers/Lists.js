@@ -46,7 +46,7 @@ module.exports = {
       return res.json({ status: "error", message: "Campo nome não pode estar vazio!" });
     }
 
-    var list = await List.findByIdAndUpdate(req.params.id,{$set:req.body}, function(err) {
+    var list = await List.findByIdAndUpdate(req.params.listId,{$set:req.body}, function(err) {
       if(err) {
         console.log(err);
       }
@@ -60,7 +60,7 @@ module.exports = {
     isMyList(req, res);
 
     try {
-      list = await List.findByIdAndRemove(req.params.id);
+      list = await List.findByIdAndRemove(req.params.listId);
     } catch(err) {
       return res.json({ error: err })
     }

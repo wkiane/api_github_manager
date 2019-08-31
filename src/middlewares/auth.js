@@ -28,9 +28,9 @@ module.exports = {
 
   async isMyList(req, res) {
     const { user } = req.headers
-    const { id } = req.params
+    const { listId } = req.params
 
-    const list = await List.findById(id , function(err) {
+    const list = await List.findById(listId , function(err) {
       if(err) {
         return res.json({ status: "error", message: "Lista não encontrada!"});
       }

@@ -16,7 +16,9 @@ routes.post('/githubusers/new', GithubUsers.create);
 
 routes.get('/lists', Lists.index);
 routes.post('/list/new', Lists.create);
-routes.put('/list/:id', Lists.update);
-routes.delete('/list/:id', Lists.delete);
+routes.put('/list/:listId', Lists.update);
+routes.delete('/list/:listId', Lists.delete);
+
+routes.post('/githubusers/:listId', GithubUsers.store);
 
 module.exports = routes;
