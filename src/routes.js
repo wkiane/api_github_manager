@@ -4,6 +4,7 @@ const express = require('express');
 const Users = require('./controllers/Users');
 const GithubUsers = require('./controllers/GithubUsers');
 const Lists = require('./controllers/Lists');
+const Tags = require('./controllers/Tags');
 
 const routes = express.Router();
 
@@ -20,5 +21,7 @@ routes.put('/list/:listId', Lists.update);
 routes.delete('/list/:listId', Lists.delete);
 
 routes.post('/githubusers/:listId', GithubUsers.store);
+
+routes.post('/tags/new', Tags.create);
 
 module.exports = routes;

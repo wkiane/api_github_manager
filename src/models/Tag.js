@@ -6,12 +6,6 @@ const TagSchema = new Schema({
     type: String,
     required: true
   },
-
-  list: [{
-    type: Schema.Types.ObjectId, ref: 'List',
-    required: true
-  }],
-
   githubusers: [{
     type: Schema.Types.ObjectId, ref: 'GithubUser',
   }]

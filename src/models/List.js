@@ -7,10 +7,6 @@ const ListSchema = new Schema({
     type: String,
     required: true
   },
-
-  tags: [{
-    type: Schema.Types.ObjectId, ref: 'Tag',
-  }],
   
   githubusers: [{
     type: Schema.Types.ObjectId, ref: 'GithubUser',
