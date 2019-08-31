@@ -34,7 +34,7 @@ module.exports = {
         nome: tag_name,
         github: githubUser._id
       });
-      return res.json({ message: "Tag adcionada a usuário github" });
+      return res.json(tagExists);
     }
 
     githubUser.tags.push(tagExists._id);
