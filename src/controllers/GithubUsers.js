@@ -9,7 +9,7 @@ const List = require('../models/List');
 module.exports = {
 
   async index(req, res) {
-    const githubUsers = await GithubUser.find({});
+    const githubUsers = await GithubUser.find({}).sort('-createdAt');
 
     return res.json(githubUsers);
   },

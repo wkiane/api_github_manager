@@ -22,6 +22,7 @@ routes.delete('/list/:listId', Lists.delete);
 
 routes.post('/githubusers/:listId', GithubUsers.store);
 
+routes.get('/tags', Tags.index);
 routes.post('/tags/new', Tags.create);
 
 module.exports = routes;

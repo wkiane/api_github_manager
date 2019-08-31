@@ -17,7 +17,7 @@ module.exports = {
 
     const users = await User.find({
       _id: { $ne: user }
-    })
+    }).sort('-createdAt');
 
     return res.json(users);
   },

@@ -60,3 +60,6 @@ Headers: `user` com o ID do usuário logado
 Váriaveis: `login` do usuário github
 
 ### Adicionar Tag a Usuário Github
+Comando: POST `/tags/new`
+Headers: `user`com o ID do usuário logado
+Váriaveis: `login`com o login do usuário github e `tag_name`com o nome da tag

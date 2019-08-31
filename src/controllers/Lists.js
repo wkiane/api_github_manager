@@ -7,7 +7,7 @@ const { isAuthenticated, isMyList } = require('../middlewares/auth');
 module.exports = {
 
   async index(req, res) {
-    listas = await List.find({});
+    listas = await List.find({}).sort('-createdAt');
 
     return res.json(listas);
   },

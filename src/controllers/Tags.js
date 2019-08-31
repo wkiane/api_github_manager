@@ -5,6 +5,12 @@ const { isAuthenticated } = require('../middlewares/auth');
 
 
 module.exports = {
+  async index(req, res) {
+    const tags = await Tag.find({}).sort('-createdAt');
+
+    return res.json(tags);
+  },
+
   async create(req, res) {
     isAuthenticated(req, res);
 
