@@ -1,8 +1,7 @@
-const axios = require('axios');
 var bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 var { check } = require('express-validator');
-var { trata_cpf } = require('../helpers/user_helpers');
+var { trata_cpf, is_a_number } = require('../helpers/user_helpers');
 
 
 const saltRounds = 10;
@@ -23,7 +22,7 @@ module.exports = {
     return res.json(users);
   },
 
-  async store(req, res) {
+  async create(req, res) {
 
     const { email, cpf, senha, isAdmin } = req.body
     
@@ -44,13 +43,15 @@ module.exports = {
       return res.json({ status: "error", message: "Senha deve ter pelo menos 6 caracteres" })
     }
 
-    if(trata_cpf(cpf).length !== 11) {
+    const cpf_tratado = trata_cpf(cpf);
+
+    if(cpf_tratado.length !== 11 ||  !is_a_number(cpf_tratado)) {
       return res.json({ status: "error", message: "CPF inválido" });
     }
 
     bcrypt.hash(senha, saltRounds, async function(err, hash) {
       
-      await User.create({ email: email, senha: hash, cpf: cpf, isAdmin: isAdmin }, function(err, result) {
+      await User.create({ email: email, senha: hash, cpf: cpf_tratado, isAdmin: isAdmin }, function(err, result) {
         if(err) {
           return res.json({ status: "error", message: err})
         }
@@ -93,13 +94,3 @@ module.exports = {
     });
   }
 }
-
-
-/*
-UserSchema.pre('save', function(next){
-  this.senha = bcrypt.hashSync(this.senha, saltRounds);
-  next();
-});  
-
-
-*/
