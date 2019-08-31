@@ -15,11 +15,13 @@ const GihubUserSchema = new Schema({
   },
   localidade: {
     type: String,
-    required: true,
   },
   html_url: {
     type: String,
     required: true,
+  },
+  tags: {
+    type: Array,
   },
   lists: [{
     type: Schema.Types.ObjectId, ref: 'List',

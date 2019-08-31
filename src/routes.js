@@ -14,6 +14,9 @@ routes.post('/users/authenticate', Users.authenticate);
 routes.get('/githubusers', GithubUsers.index);
 routes.post('/githubusers/new', GithubUsers.create);
 
+routes.get('/lists', Lists.index);
 routes.post('/list/new', Lists.create);
+routes.put('/list/:id', Lists.update);
+routes.delete('/list/:id', Lists.delete);
 
 module.exports = routes;

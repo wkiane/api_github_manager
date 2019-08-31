@@ -9,6 +9,7 @@ const UserSchema = new Schema({
   senha: {
     type: String,
     required: true,
+    select: false,
   },
   cpf: {
     type: String,

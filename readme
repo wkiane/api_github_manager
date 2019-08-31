@@ -1,0 +1,44 @@
+## API Github Manager
+
+A API Github Manager permite que você crie um  usuário adcione usuários e crie lista para organizar seus usuários do github.
+
+### Endereço
+
+Para usar a API, utilize o endereço:
+
+`https://localhost:3333/api/[command]`
+
+Onde [command] pode ser um dos serviços listados abaixo:
+
+### Listar Usuários
+
+Comando: `users`
+Retorno: Um JSON com a lista de Usuários cadastrados.
+
+### Cadastrar um usuário
+
+Comando: `users/register`
+Body Type: Form URL Encoded
+Váriaveis: `email`, `senha`, `isAdmin` e `cpf`
+Retorno: Um JSON com o status do cadastro.
+
+### Logar com um usuário
+
+Comando: `users/authenticate`
+Body Type: Form URL Encoded
+Váriaveis: `email` e `senha`
+Retorno: Um JSON com o status da autenticação.
+
+### Cadastrar um usuário github
+Comando `githubusers/new`
+Váriaveis: `username`
+Retorno: Um JSON com o status da criação do usuário github
+
+### Listar todos usuários github
+Comando: `githubusers`
+Retorno: Um JSON com a lista de todos usuários do github cadastrados.
+
+### Criar uma lista de usuários github
+Comando: `list/new`
+Váriaveis: `nome`
+Retorno: Um JSON com o status da criação da lista e a lista
