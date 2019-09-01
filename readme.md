@@ -1,6 +1,6 @@
 ## API Github Manager
 
-A API Github Manager permite que você crie um  usuário adcione usuários e crie lista para organizar seus usuários do github.
+A API Github Manager permite que você crie um usuário adicione usuários do github a listas e adicione tags aos usuários.
 
 ### Endereço
 
@@ -10,8 +10,11 @@ Para usar a API, utilize o endereço:
 
 Onde [command] pode ser um dos serviços listados abaixo:
 
-### Listar Usuários
+### Listar todos usuários github
+Comando: Rota Raiz
+Retorno: Um JSON com a lista de todos usuários do github cadastrados.
 
+### Listar Usuários
 Comando: `users`
 Retorno: Um JSON com a lista de Usuários cadastrados.
 
@@ -24,42 +27,38 @@ Retorno: Um JSON com o status do cadastro.
 
 ### Logar com um usuário
 
-Comando: `/users/authenticate`
+Comando: `users/authenticate`
 Body Type: Form URL Encoded
 Váriaveis: `email` e `senha`
 Retorno: Um JSON com o status da autenticação.
 
 ### Cadastrar um usuário github
-Comando `/githubusers/new`
+Comando `githubusers/new`
 Headers: `user` com o ID do usuário logado
 Váriaveis: `username`
 Retorno: Um JSON com o status da criação do usuário github
 
-### Listar todos usuários github
-Comando: `/`
-Retorno: Um JSON com a lista de todos usuários do github cadastrados.
-
 ### Criar uma lista de usuários github
-Comando: `/list/new`
+Comando: `list/new`
 Headers: `user` com o ID do usuário logado
 Váriaveis: `nome`
 Retorno: Um JSON com o status da criação da lista e a lista
 
 ### Editar uma lista de usuários github
-Comando: PUT `/list/:listId`
+Comando: PUT `list/:listId`
 Headers: `user` com o ID do usuário logado
 Váriaveis: `nome`
 
 ### Deletar uma lista de usuários github
-Comando: DELETE `/list/:listId`
+Comando: DELETE `list/:listId`
 Headers: `user`com o ID do usuário logado
 
 ### Adicionar Usuário Github a uma Lista
-Comando: POST `/githubusers/:listId`
+Comando: POST `githubusers/:listId`
 Headers: `user` com o ID do usuário logado
 Váriaveis: `login` do usuário github
 
 ### Adicionar Tag a Usuário Github
-Comando: POST `/tags/new`
+Comando: POST `tags/new`
 Headers: `user`com o ID do usuário logado
 Váriaveis: `login`com o login do usuário github e `tag_name`com o nome da tag
