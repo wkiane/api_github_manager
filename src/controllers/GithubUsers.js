@@ -10,7 +10,6 @@ module.exports = {
 
   async index(req, res) {
     const githubUsers = await GithubUser.find({}).sort('-createdAt');
-
     return res.json(githubUsers);
   },
 
@@ -19,8 +18,6 @@ module.exports = {
 
     const { listId } = req.params;
     const { login } = req.body;
-
-    
 
     const list = await List.findById(listId);
     const githubUser = await GithubUser.findOne({ login }, function(err) {
@@ -37,10 +34,12 @@ module.exports = {
       return res.json({ status: "error", message: "Usuário github não encontrado" });
     }
 
+    // caso o githubuser já esteja nesta lista
     if(list.githubusers.includes(githubUser._id)) {
       return res.json({ message: "Usuário já cadastrado na lista"});
     }
 
+    // adicionar githubuser a lista
     list.githubusers.push(githubUser._id);
     const new_list = await list.save();
 
@@ -48,6 +47,7 @@ module.exports = {
       return res.json({ status: "error", message: "Algo deu errado!" });
     }
 
+    // adcionar lista a githubuser
     githubUser.lists.push(new_list);
     const new_githubuser = await githubUser.save();
 
@@ -57,17 +57,16 @@ module.exports = {
   async create(req, res) {
     
     isAdmin(req, res);
-
     const { username } = req.body
-    
     const githubUserExists = await GithubUser.findOne({ login: username });
 
+    // se o usuario já existir retorne ele
     if(githubUserExists) {
       return res.json(githubUserExists);
     }
 
+    // requisição a api
     const response = await axios.get(`https://api.github.com/users/${username}?client_id=${process.env.GITHUB_ID}&client_secret=${process.env.GITHUB_SECRET}`);
-
     const { login, name, bio, location, html_url } = response.data
 
     const githubUser = await GithubUser.create({
@@ -77,9 +76,6 @@ module.exports = {
       localidade: location,
       html_url: html_url
     });
-
-    
-
     return res.json(githubUser);
   }
 

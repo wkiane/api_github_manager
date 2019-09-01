@@ -14,20 +14,16 @@ module.exports = {
 
   async index(req, res) {
     const { user } = req.headers;
-
     const users = await User.find({
       _id: { $ne: user }
     }).sort('-createdAt');
-
     return res.json(users);
   },
 
   async create(req, res) {
 
     const { email, cpf, senha, isAdmin } = req.body
-    
     const userExists = await User.findOne({ email : email })
-
     // se o usuario já existir pare aqui
     if(userExists) {
       return res.json({ status: 'erro',
@@ -57,8 +53,7 @@ module.exports = {
         }
         
         res.json({  status: "success",
-                      message: "Usuário criado com sucesso",
-                      data: null,
+                      message: "Usuário criado com sucesso"
                 })
       });
     
@@ -75,10 +70,8 @@ module.exports = {
         return res.json({ status: "error", message: err})
       } else {
 
-        console.log({ senha, userInfo })
-
+        // se as senhas condidirem
         bcrypt.compare(senha, userInfo, function(err) {
-
           try {
             //login
             const token = jwt.sign({ id: userInfo._id }, req.app.get('secretKey'), {
@@ -88,14 +81,12 @@ module.exports = {
             res.json({
                       status: "success",
                       message: "user found",
-                      data: {user: userInfo, token: token }
+                      data: { user: userInfo, token: token }
                     });
           } catch(err) {
             res.json({ status: "error", message: "Invalid email or password" });
           }
         });
-
-        
       }
     });
   }

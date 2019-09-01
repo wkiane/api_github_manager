@@ -7,13 +7,11 @@ const { isAuthenticated } = require('../middlewares/auth');
 module.exports = {
   async index(req, res) {
     const tags = await Tag.find({}).sort('-createdAt');
-
     return res.json(tags);
   },
 
   async create(req, res) {
     isAuthenticated(req, res);
-
     const { login, tag_name } = req.body;
 
     if(!login) {
@@ -34,16 +32,20 @@ module.exports = {
         nome: tag_name,
         github: githubUser._id
       });
-      return res.json(tagExists);
+
+      return res.json({ status: "sucesso", message: "Tag adcionada a usuário!" });      
+    }
+
+    if(githubUser.tags.includes(tagExists._id)) {
+      return res.json({ message: "Githubuser já tem essa tag!" })
     }
 
     githubUser.tags.push(tagExists._id);
-    tagExists.githubusers.push(githubUser.id);
     await tagExists.save();
     await githubUser.save();
 
 
-    return res.json(tagExists);
+    return res.json({ status: "sucesso", message: "Tag adcionada a usuário!" });
 
 
   }
