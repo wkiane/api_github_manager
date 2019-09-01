@@ -11,35 +11,35 @@ Para usar a API, utilize o endereço:
 Onde [command] pode ser um dos serviços listados abaixo:
 
 ### Listar todos usuários github
-Comando: Rota Raiz </br></br>
+Comando: GET Rota Raiz </br></br>
 Retorno: Um JSON com a lista de todos usuários do github cadastrados.
 
 ### Listar Usuários
-Comando: `users` </br></br>
+Comando: GET `users` </br></br>
 Retorno: Um JSON com a lista de Usuários cadastrados.
 
 ### Cadastrar um usuário
 
-Comando: `users/register` </br></br>
+Comando: POST `users/register` </br></br>
 Body Type: Form URL Encoded </br></br>
 Váriaveis: `email`, `senha`, `isAdmin` e `cpf` </br></br>
 Retorno: Um JSON com o status do cadastro. 
 
 ### Logar com um usuário
 
-Comando: `users/authenticate` </br></br>
+Comando: POST `users/authenticate` </br></br>
 Body Type: Form URL Encoded </br></br>
 Váriaveis: `email` e `senha` </br></br>
 Retorno: Um JSON com o status da autenticação. </br></br>
 
 ### Cadastrar um usuário github
-Comando `githubusers/new` </br></br>
+Comando POST `githubusers/new` </br></br>
 Headers: `user` com o ID do usuário logado </br></br>
 Váriaveis: `username` </br></br>
 Retorno: Um JSON com o status da criação do usuário github </br></br>
 
 ### Criar uma lista de usuários github
-Comando: `list/new` </br></br>
+Comando: POST `list/new` </br></br>
 Headers: `user` com o ID do usuário logado </br></br>
 Váriaveis: `nome` </br></br>
 Retorno: Um JSON com o status da criação da lista e a lista </br></br>
