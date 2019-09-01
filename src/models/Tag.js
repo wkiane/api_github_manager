@@ -8,6 +8,8 @@ const TagSchema = new Schema({
   },
   githubusers: [{
     type: Schema.Types.ObjectId, ref: 'GithubUser',
+  }, {
+    timestamps: true,
   }]
 });
 
