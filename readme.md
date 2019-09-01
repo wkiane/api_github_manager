@@ -24,34 +24,34 @@ Retorno: Um JSON com o status do cadastro.
 
 ### Logar com um usuário
 
-Comando: `users/authenticate`
+Comando: `/users/authenticate`
 Body Type: Form URL Encoded
 Váriaveis: `email` e `senha`
 Retorno: Um JSON com o status da autenticação.
 
 ### Cadastrar um usuário github
-Comando `githubusers/new`
+Comando `/githubusers/new`
 Headers: `user` com o ID do usuário logado
 Váriaveis: `username`
 Retorno: Um JSON com o status da criação do usuário github
 
 ### Listar todos usuários github
-Comando: `githubusers`
+Comando: `/`
 Retorno: Um JSON com a lista de todos usuários do github cadastrados.
 
 ### Criar uma lista de usuários github
-Comando: `list/new`
+Comando: `/list/new`
 Headers: `user` com o ID do usuário logado
 Váriaveis: `nome`
 Retorno: Um JSON com o status da criação da lista e a lista
 
 ### Editar uma lista de usuários github
-Comando: PUT `list/:listId`
+Comando: PUT `/list/:listId`
 Headers: `user` com o ID do usuário logado
 Váriaveis: `nome`
 
 ### Deletar uma lista de usuários github
-Comando: DELETE `list/:listId`
+Comando: DELETE `/list/:listId`
 Headers: `user`com o ID do usuário logado
 
 ### Adicionar Usuário Github a uma Lista
