@@ -12,7 +12,7 @@ routes.get('/users', Users.index);
 routes.post('/users/register', Users.create);
 routes.post('/users/authenticate', Users.authenticate);
 
-routes.get('/githubusers', GithubUsers.index);
+routes.get('/', GithubUsers.index);
 routes.post('/githubusers/new', GithubUsers.create);
 
 routes.get('/lists', Lists.index);
