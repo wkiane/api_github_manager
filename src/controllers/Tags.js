@@ -12,7 +12,6 @@ module.exports = {
 
   async create(req, res) {
     isAuthenticated(req, res);
-
     const { login, tag_name } = req.body;
 
     if(!login) {
@@ -32,21 +31,21 @@ module.exports = {
       const new_tag = Tag.create({
         nome: tag_name,
         github: githubUser._id,
-        githubusers: [githubUser._id]
+        githubusers: [githubUser],
       });
-      return res.json({ status: "sucesso", message: "Tag adicionada a usuário"});
+      return res.json({ status: "sucesso", message: "Tag adcionada a usuário!" });      
     }
 
-    if(tagExists.githubusers.includes(githubUser._id)) {
-      return res.json({ message: "Tag já adicionada a usuário!" })
+    if(githubUser.tags.includes(tagExists._id)) {
+      return res.json({ message: "Githubuser já tem essa tag!" })
     }
+
     githubUser.tags.push(tagExists._id);
-    tagExists.githubusers.push(githubUser._id);
     await tagExists.save();
     await githubUser.save();
 
 
-    return res.json({ status: "sucesso", message: "Tag adicionada a usuário"});
+    return res.json({ status: "sucesso", message: "Tag adcionada a usuário!" });
 
 
   }
